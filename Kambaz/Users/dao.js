@@ -14,5 +14,5 @@ export default function UsersDao(db) {
  const updateUser = (userId, user) => (users = users.map((u) => (u._id === userId ? user : u)));
  const deleteUser = (userId) => (users = users.filter((u) => u._id !== userId));
  return {
-    createUser, findAllUsers, findUserById, findUserByUsername, findUserByCredentials, updateUser, deleteUser };
+    createUser, findAllUsers, findUserById, findUserByUsername, findUserByCredentials, updateUser, deleteUser   };
 }
