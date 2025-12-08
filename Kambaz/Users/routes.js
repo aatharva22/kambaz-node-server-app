@@ -2,22 +2,42 @@ import UsersDao from "./dao.js";
 // let currentUser = null; commenting so we can use session-based auth, and have multiple users signed in simultaneously
 export default function UserRoutes(app) {
  const dao = UsersDao();
-  const createUser = (req, res) => { 
-
+ 
+  const deleteUser = async (req, res) => {
+      const status = await dao.deleteUser(req.params.userId);
+      console.log(status);
+      res.json(status);
   };
-  const deleteUser = (req, res) => { };
+
     const findAllUsers = async (req, res) => {
     const users = await dao.findAllUsers();
+    const { role,name } = req.query;
+    if (role) {
+      const users = await dao.findUsersByRole(role);
+      res.json(users);
+      return;
+    }
+    if (name) {
+      const users = await dao.findUsersByPartialName(name);
+      res.json(users);
+      return;
+    }
+
     res.json(users);
   };
   
-  const findUserById = (req, res) => { };
-  const updateUser = (req, res) => { 
+  const findUserById =  async (req, res) => {
+    const user = await dao.findUserById(req.params.userId);
+    res.json(user);
+};
+  const updateUser = async (req, res) => { 
     const userId = req.params.userId;
     const userUpdates = req.body;
-    dao.updateUser(userId, userUpdates);
-    const currentUser = dao.findUserById(userId);
-    req.session["currentUser"] = currentUser;
+    await dao.updateUser(userId, userUpdates);
+    const currentUser = req.session["currentUser"];
+   if (currentUser && currentUser._id === userId) {
+     req.session["currentUser"] = { ...currentUser, ...userUpdates };
+   }
     res.json(currentUser);
 
   };
@@ -58,6 +78,11 @@ export default function UserRoutes(app) {
 
     res.json(currentUser);
   };
+  const createUser = async (req, res) => {
+    const user = await dao.createUser(req.body);
+    res.json(user);
+  };
+
   app.post("/api/users", createUser);
   app.get("/api/users", findAllUsers);
   app.get("/api/users/:userId", findUserById);
