@@ -7,6 +7,7 @@ export default function CoursesDao(db) {
   const { courses, enrollments } = db;
   const enrolledCourses = courses.filter((course) =>
     enrollments.some((enrollment) => enrollment.user === userId && enrollment.course === course._id));
+  console.log(enrolledCourses);
   return enrolledCourses;
 }
 function createCourse(course) {
