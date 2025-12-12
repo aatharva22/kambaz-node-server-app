@@ -8,6 +8,6 @@ const courseSchema = new mongoose.Schema({
    description: String,
    mudules: [moduleSchema]
  },
- { collection: "courses" }
+ { collection: "Courses" }
 );
 export default courseSchema;

@@ -16,9 +16,17 @@ import EnrollmentsRoutes from "./Kambaz/Enrollments/routes.js";
 import AssignmentsRoutes from "./Kambaz/Assignments/routes.js";
 import mongoose from "mongoose";
 
-const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING ||"mongodb://127.0.0.1:27017/kambaz"
-// const CONNECTION_STRING = "mongodb+srv://atharvaboston10:CS5610@kambaz.1a03rej.mongodb.net/?appName=Kambaz"
+// const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING ||"mongodb://127.0.0.1:27017/kambaz"
+const CONNECTION_STRING = "mongodb+srv://atharvaboston10:CS5610@kambaz.1a03rej.mongodb.net/Kambaz?appName=Kambaz"
+// mongodb+srv://atharvaboston10:CS5610@kambaz.1a03rej.mongodb.net/?appName=Kambaz
 mongoose.connect(CONNECTION_STRING);
+mongoose.connection.on("connected", () => {
+  console.log(" MongoDB connected");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.error(" MongoDB connection error:", err);
+});
 const app = express(); // Create an instance of express application
 app.use(cors(
     {

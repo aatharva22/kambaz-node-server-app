@@ -48,6 +48,7 @@ export default function UserRoutes(app) {
         req.session["currentUser"] = currentUser; // Store user in session
         res.json(currentUser);// Return user data
     } else {
+        console.log(currentUser)
         res.status(401).json({ message: "Unable to login. Try again later." });
     }
     

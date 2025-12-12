@@ -13,6 +13,6 @@ const enrollmentSchema = new mongoose.Schema(
      default: "ENROLLED",
    },
  },
- { collection: "enrollments" }
+ { collection: "Enrollments" }
 );
 export default enrollmentSchema;

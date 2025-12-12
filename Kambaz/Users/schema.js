@@ -17,6 +17,6 @@ const userSchema = new mongoose.Schema({
     lastActivity: Date,
     totalActivity: String,
   },
-  { collection: "users" }
+  { collection: "Users" }
 );
 export default userSchema;
