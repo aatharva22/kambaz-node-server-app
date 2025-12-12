@@ -37,6 +37,7 @@ export default function UserRoutes(app, db) {
     }
     const currentUser = dao.createUser(req.body);
     req.session["currentUser"] = currentUser;
+    res.json(currentUser);
    };
   const signout = (req, res) => { 
     // currentUser = null;

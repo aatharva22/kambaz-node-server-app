@@ -1,4 +1,5 @@
 import ModulesDao from "../Modules/dao.js";
+import { v4 as uuidv4 } from "uuid";
 export default function ModulesRoutes(app, db) {
   const dao = ModulesDao(db);
   const findModulesForCourse = (req, res) => {
