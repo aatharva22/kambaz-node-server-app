@@ -18,7 +18,6 @@ import AssignmentsRoutes from "./Kambaz/Assignments/routes.js";
 
 
 const app = express(); // Create an instance of express application
-app.set("trust proxy", 1); // Trust first proxy for secure cookies
 app.use(cors(
     {
         credentials: true,
@@ -40,6 +39,8 @@ if (process.env.SERVER_ENV !== "development") {
   };
 }// Adjust session settings for production environment
 app.use(session(sessionOptions));
+app.set("trust proxy", 1); // Trust first proxy for secure cookies
+
 app.use(express.json());
 
 app.use(express.json()); //TO enable parsing of JSON body content
