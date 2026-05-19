@@ -27,32 +27,32 @@ mongoose.connection.on("connected", () => {
 mongoose.connection.on("error", (err) => {
   console.error(" MongoDB connection error:", err);
 });
-const app = express(); // Create an instance of express application
-app.use(cors(
-    {
-        credentials: true,
-        origin: process.env.CLIENT_URL || "http://localhost:3000",
-    }
-)); // Enable CORS for cross-origin requests
+const app = express();
+
+app.set("trust proxy", 1);
+
+app.use(cors({
+  credentials: true,
+  origin: process.env.NETLIFY_URL || "http://localhost:3000",
+}));
 
 const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kambaz",
   resave: false,
   saveUninitialized: false,
-}; // Session configuration
-if (process.env.SERVER_ENV !== "development") {
+};
+if (process.env.NODE_ENV !== "development") {
   sessionOptions.proxy = true;
   sessionOptions.cookie = {
     sameSite: "none",
     secure: true,
-    domain: process.env.SERVER_URL,
   };
-}// Adjust session settings for production environment
+}
 app.use(session(sessionOptions));
+
 app.use(express.json());
 
-app.use(express.json()); //TO enable parsing of JSON body content
-UserRoutes(app, db); // Configure User routes with the app and db
+UserRoutes(app, db);
 
 Hello(app);
 Lab5(app);
