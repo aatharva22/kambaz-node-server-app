@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Lint & syntax check
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Syntax check all JS files
+        run: npm run check
+
+      - name: Smoke-test boot (no DB)
+        env:
+          NODE_ENV: development
+          PORT: 4000
+          DATABASE_CONNECTION_STRING: mongodb://127.0.0.1:27017/kambaz-ci
+        run: |
+          # Start the server, give it 3s to wire routes, then kill it.
+          # Fails the job if the process exits early with an error.
+          (npm start & echo $! > server.pid) || true
+          sleep 3
+          if kill -0 "$(cat server.pid)" 2>/dev/null; then
+            kill "$(cat server.pid)"
+            echo "Server booted cleanly."
+          else
+            echo "Server crashed during boot." >&2
+            exit 1
+          fi

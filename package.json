@@ -1,13 +1,28 @@
 {
   "name": "kambaz-node-server-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "REST API server for Kambaz, a Canvas-style learning management system.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
   "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "check": "find . -name \"*.js\" -not -path \"./node_modules/*\" -not -path \"./.git/*\" -print0 | xargs -0 -n1 node --check",
+    "test": "echo \"No automated tests yet — syntax check runs in CI\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aatharva22/kambaz-node-server-app.git"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "mongoose",
+    "rest-api",
+    "lms",
+    "session-auth"
+  ],
+  "author": "Atharva Sonawane",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
@@ -17,6 +32,5 @@
     "mongoose": "^9.0.1",
     "nodemon": "^3.1.11",
     "uuid": "^13.0.0"
-  },
-  "start": "node index.js"
+  }
 }
