@@ -136,6 +136,3 @@ Designed to run behind a reverse proxy (Render, Railway, Fly, Heroku-style PaaS)
 **Atharva Sonawane** — MS Computer Science, Northeastern University · Boston, MA
 📧 atharvaboston10@gmail.com · 🔗 [LinkedIn](https://linkedin.com/in/atharva-sonawane-25b801227) · 💼 [Portfolio](https://github.com/aatharva22)
 
-## License
-
-ISC — see [LICENSE](LICENSE).
