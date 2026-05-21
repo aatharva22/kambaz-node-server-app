@@ -5,13 +5,6 @@
   Courses, modules, assignments, enrollments, and session-based multi-user auth.
 </p>
 
-<p align="center">
-  <a href="https://github.com/aatharva22/kambaz-node-server-app/actions"><img alt="CI" src="https://github.com/aatharva22/kambaz-node-server-app/actions/workflows/ci.yml/badge.svg"/></a>
-  <img alt="Node" src="https://img.shields.io/badge/node-%E2%89%A518.x-339933?logo=nodedotjs&logoColor=white"/>
-  <img alt="Express" src="https://img.shields.io/badge/express-5.x-000000?logo=express&logoColor=white"/>
-  <img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white"/>
-  <img alt="License" src="https://img.shields.io/badge/license-ISC-blue"/>
-</p>
 
 <p align="center">
   <b>Live client:</b> <a href="https://kambaz-next-js-xhy3.vercel.app">kambaz-next-js-xhy3.vercel.app</a> ·
@@ -56,24 +49,6 @@
 | **Modules** | `GET POST /api/courses/:courseId/modules` · `PUT DELETE /api/courses/:courseId/modules/:moduleId` | Nested under a course; supports inline lessons. |
 | **Assignments** | `GET POST /api/courses/:courseId/assignments` · `GET PUT DELETE /api/assignments/:assignmentId` | |
 
-### Try it
-
-```bash
-# 1. Sign up
-curl -i -c cookies.txt -H 'Content-Type: application/json' \
-  -d '{"username":"asonawane","password":"hunter2","firstName":"Atharva"}' \
-  http://localhost:4000/api/users/signup
-
-# 2. Create a course as the logged-in user (cookie sent automatically)
-curl -i -b cookies.txt -H 'Content-Type: application/json' \
-  -d '{"_id":"RS101","name":"Rocket Surgery","credits":4}' \
-  http://localhost:4000/api/users/current/courses
-
-# 3. List the courses you're enrolled in
-curl -b cookies.txt http://localhost:4000/api/users/current/courses
-```
-
----
 
 ## Architecture
 
